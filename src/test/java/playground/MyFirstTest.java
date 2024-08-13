@@ -27,12 +27,4 @@ public class MyFirstTest {
         System.out.println("This is My second tests");
     }
 
-
-
-
-
-
-
-
-
 }
