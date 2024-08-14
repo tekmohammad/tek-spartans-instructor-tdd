@@ -1,5 +1,9 @@
 package playground;
 
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
 public class Activity2 {
 
     //Write a method that takes firstName and Last Name as parameters
@@ -22,8 +26,45 @@ public class Activity2 {
                 firstName.substring(1).toLowerCase();
     }
 
+    @Test(dataProvider = "positiveTestData")
+    public void positiveTesting(String firstName, String lastName, String expectedFullName) {
+       String fullName = getFullName(firstName, lastName);
 
+        Assert.assertEquals(fullName, expectedFullName, "FullName should match format");
+    }
 
+    @DataProvider(name = "positiveTestData")
+    private String[][] positiveTestData() {
+        String[][] data = {
+                {"mohammad", "shokriyan", "SHOKRIYAN, Mohammad" },
+                {"JoHN", "SMITH", "SMITH, John" },
+                {" ALEN ", " smith ", "SMITH, Alen" },
+
+        };
+        return data;
+    }
+
+    @Test
+    public void negativeTesting() {
+        try {
+            getFullName(null, null);
+            Assert.fail("Test Supposed to throw Exception");
+        }catch (RuntimeException ex) {
+            Assert.assertTrue(true, "Catch the Exception Passing the Test");
+        }
+    }
+
+    @Test(expectedExceptions = {RuntimeException.class})
+    public void testNegativeWithExpectedException() {
+        getFullName("", null);
+    }
+
+    @Test
+    public void testNegativeWithAssertionThrow() {
+        Assert.assertThrows(RuntimeException.class, () -> {
+            getFullName("", "");
+        });
+    }
 
 
 
