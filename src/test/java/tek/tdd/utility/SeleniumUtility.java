@@ -23,9 +23,10 @@ public class SeleniumUtility extends BaseSetup {
 
     public boolean isElementEnabled(By locator) {
         LOGGER.debug("Checking element enable status {}", locator);
-        return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator))
+        boolean isEnabled = getWait().until(ExpectedConditions.visibilityOfElementLocated(locator))
                 .isEnabled();
-
+        LOGGER.debug("element is enabled status {}", isEnabled);
+        return isEnabled;
     }
 
 }
