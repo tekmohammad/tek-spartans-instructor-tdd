@@ -29,4 +29,17 @@ public class CreateAccountTests extends UIBaseClass {
     Navigate to Create Account page and Create new Account
     With existing email and validate error message "this email is already exist, please use another email address".
      */
+    @Test
+    public void createNewAccountWithExistingEmail() {
+        clickOnElement(homePage.signInLink);
+        clickOnElement(signInPage.createNewAccountLink);
+
+        signUpPage.fillUpCreateAccountForm("Mohammad", "mohammad2536@gmail.com", "Password!321");
+
+        String actualError = getElementText(signUpPage.signUpError);
+
+        Assert.assertEquals(actualError, "this email is already exist, please use another email address",
+                "Error Message for Existing Email should match");
+
+    }
 }
