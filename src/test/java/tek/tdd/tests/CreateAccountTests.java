@@ -12,7 +12,7 @@ public class CreateAccountTests extends UIBaseClass {
         clickOnElement(homePage.signInLink);
         clickOnElement(signInPage.createNewAccountLink);
 
-        String expectedEmail = DataGenerator.genereteRandomEmail("Mohammad");
+        String expectedEmail = DataGenerator.generateRandomEmail("Mohammad");
 
         signUpPage.fillUpCreateAccountForm("Mohammad",
                 expectedEmail,
@@ -23,4 +23,10 @@ public class CreateAccountTests extends UIBaseClass {
         Assert.assertEquals(actualEmail, expectedEmail,
                 "Profile Page should have same email as Created");
     }
+
+    /*
+    Story 4.1 (Activity 15 Minute)
+    Navigate to Create Account page and Create new Account
+    With existing email and validate error message "this email is already exist, please use another email address".
+     */
 }
