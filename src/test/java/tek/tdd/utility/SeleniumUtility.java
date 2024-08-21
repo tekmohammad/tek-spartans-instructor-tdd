@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import tek.tdd.base.BaseSetup;
 
 import java.time.Duration;
+import java.util.List;
 
 public class SeleniumUtility extends BaseSetup {
     private static final Logger LOGGER = LogManager.getLogger(SeleniumUtility.class);
