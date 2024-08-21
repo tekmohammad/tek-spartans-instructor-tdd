@@ -31,7 +31,7 @@ public class SecurityTest extends UIBaseClass {
     Validate error message displays "wrong username or password"
     Story 3: Navigate to sign in page and sign in with valid user and invalid password
     Validate error message display  "wrong username or password"
-    push to your github account
+    push to your gitHub account
      */
     @Test(dataProvider = "InvalidTestData")
     public void negativeSignInTests(String email, String password) {
