@@ -7,7 +7,6 @@ import org.testng.asserts.SoftAssert;
 import tek.tdd.base.UIBaseClass;
 import tek.tdd.utility.DataGenerator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
