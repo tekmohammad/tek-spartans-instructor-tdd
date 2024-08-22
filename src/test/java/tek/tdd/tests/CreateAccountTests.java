@@ -3,6 +3,7 @@ package tek.tdd.tests;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import tek.tdd.base.UIBaseClass;
 import tek.tdd.utility.DataGenerator;
 
@@ -82,6 +83,8 @@ public class CreateAccountTests extends UIBaseClass {
         //Get List of All Error Elements
         //Loop through and validate
 
+        SoftAssert softAssert = new SoftAssert();
+
         List<String> expectedError = Arrays.asList(
                 "Name is a required field",
                 "Email is a required field" ,
@@ -90,13 +93,15 @@ public class CreateAccountTests extends UIBaseClass {
 
         List< WebElement> actualErrorElements = signUpPage.fieldErrors;
 
-        Assert.assertEquals(actualErrorElements.size(), expectedError.size());
+        softAssert.assertEquals(actualErrorElements.size(), expectedError.size());
 
         for (int i = 0; i < expectedError.size(); i++) {
-            Assert.assertEquals(
+            softAssert.assertEquals(
                     getElementText(actualErrorElements.get(i)),
                     expectedError.get(i)
             );
         }
+
+        softAssert.assertAll();
     }
 }
