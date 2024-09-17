@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tek.tdd.base.ApiTestsBase;
@@ -28,6 +29,16 @@ public class TokenGenerationTests extends ApiTestsBase {
         Response response = requestSpecification.when().post("/api/token");
         response.then().statusCode(200);
 
+        //To access data in response body.
+        String actualUsername = response.body().jsonPath().getString("username");
+        Assert.assertEquals(actualUsername, username, "Username should Match");
+
+        String token = response.body().jsonPath().getString("token");
+        Assert.assertNotNull(token);
+
+        String accountType = response.body().jsonPath().getString("accountType");
+        Assert.assertEquals(accountType, "CSR");
+
         LOGGER.info("Response is {}", response.asPrettyString());
     }
 
@@ -36,11 +47,33 @@ public class TokenGenerationTests extends ApiTestsBase {
         return new String[][]{
                 {"supervisor", "tek_supervisor"},
                 {"operator_readonly", "Tek4u2024"},
+        };
+    }
+
+    //Activity Token Generate with Negative, and validate error messages along with status code
+    @Test(dataProvider = "negativeData")
+    public void negativeTesting(String username, String password,
+                                int statusCode, String expectedErrorMessage) {
+        RequestSpecification request = getDefaultRequest();
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("username", username);
+        requestBody.put("password", password);
+        request.body(requestBody);
+
+        Response response = request.when().post("/api/token");
+        response.then().statusCode(statusCode);
+
+        String actualErrorMessage = response.body().jsonPath().getString("errorMessage");
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
+    }
+
+    @DataProvider(name = "negativeData")
+    private Object[][] negativeData() {
+        return new Object[][]{
+                {"wrongUser", "tek_supervisor", 404, "User wrongUser not found"},
+                {"supervisor", "wrongPassword", 400, "Password not matched"},
 
         };
     }
 
-    //Activity generate token with operator user
-//    username: operator_readonly
-//    password: Tek4u2024
 }
