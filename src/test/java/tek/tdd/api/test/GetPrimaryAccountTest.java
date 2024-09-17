@@ -41,6 +41,9 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
                 .statusCode(404)
                 .extract()
                 .response();
+
+        ExtentTestManager.getTest().info(response.asPrettyString());
+
         String errorMessage = response.body().jsonPath().getString("errorMessage");
         Assert.assertEquals(errorMessage, "Account with id 252525 not exist");
     }
