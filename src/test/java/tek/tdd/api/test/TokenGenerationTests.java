@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tek.tdd.api.models.EndPoints;
+import tek.tdd.api.models.TokenRequest;
 import tek.tdd.base.ApiTestsBase;
 
 import java.util.HashMap;
@@ -73,6 +74,20 @@ public class TokenGenerationTests extends ApiTestsBase {
                 {"supervisor", "wrongPassword", 400, "Password not matched"},
 
         };
+    }
+
+    @Test
+    public void generateTokenUseObjectAsBody() {
+        RequestSpecification request = getDefaultRequest();
+
+        TokenRequest requestBody = new TokenRequest("supervisor", "tek_supervisor");
+
+        request.body(requestBody);
+
+        Response response = request.when().post(EndPoints.TOKEN.getValue());
+
+        response.then().statusCode(200);
+        response.prettyPrint();
     }
 
 }
