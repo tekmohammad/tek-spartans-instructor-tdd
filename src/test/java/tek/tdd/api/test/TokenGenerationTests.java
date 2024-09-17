@@ -11,7 +11,6 @@ import tek.tdd.api.models.EndPoints;
 import tek.tdd.api.models.TokenRequest;
 import tek.tdd.base.ApiTestsBase;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class TokenGenerationTests extends ApiTestsBase {
