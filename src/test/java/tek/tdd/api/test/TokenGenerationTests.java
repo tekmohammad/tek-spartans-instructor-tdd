@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import tek.tdd.api.models.EndPoints;
 import tek.tdd.base.ApiTestsBase;
 
 import java.util.HashMap;
@@ -19,14 +20,13 @@ public class TokenGenerationTests extends ApiTestsBase {
     @Test(dataProvider = "credentials")
     public void generateValidToken(String username, String password) {
         RequestSpecification requestSpecification = getDefaultRequest();
-        Map<String, String> body = new HashMap<>();
-        body.put("username", username);
-        body.put("password", password);
+        Map<String, String> body = getTokenRequestBody(username, password);
 
         requestSpecification.body(body);
 
         //Send request to /api/token
-        Response response = requestSpecification.when().post("/api/token");
+        Response response = requestSpecification
+                .when().post(EndPoints.TOKEN.getValue());
         response.then().statusCode(200);
 
         //To access data in response body.
@@ -55,12 +55,11 @@ public class TokenGenerationTests extends ApiTestsBase {
     public void negativeTesting(String username, String password,
                                 int statusCode, String expectedErrorMessage) {
         RequestSpecification request = getDefaultRequest();
-        Map<String, String> requestBody = new HashMap<>();
-        requestBody.put("username", username);
-        requestBody.put("password", password);
+        Map<String, String> requestBody = getTokenRequestBody(username, password);
         request.body(requestBody);
 
-        Response response = request.when().post("/api/token");
+
+        Response response = request.when().post(EndPoints.TOKEN.getValue());
         response.then().statusCode(statusCode);
 
         String actualErrorMessage = response.body().jsonPath().getString("errorMessage");
