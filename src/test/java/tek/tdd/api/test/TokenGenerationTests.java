@@ -96,7 +96,7 @@ public class TokenGenerationTests extends ApiTestsBase {
     @Test
     public void convertResponseToPOJO() {
         TokenRequest tokenRequest = new TokenRequest("supervisor", "tek_supervisor");
-       Response response = getDefaultRequest()
+        Response response = getDefaultRequest()
                 .body(tokenRequest)
                 .when().post(EndPoints.TOKEN.getValue())
                 .then().statusCode(200)
@@ -106,9 +106,9 @@ public class TokenGenerationTests extends ApiTestsBase {
         ExtentTestManager.getTest().info(response.asPrettyString());
 
         //Convert Response body to POJO
-       TokenResponse token = response.body().jsonPath().getObject("", TokenResponse.class);
+        TokenResponse token = response.body().jsonPath().getObject("", TokenResponse.class);
 
-       Assert.assertEquals(token.getUsername(), "supervisor");
+        Assert.assertEquals(token.getUsername(), "supervisor");
         Assert.assertNotNull(token.getToken());
         Assert.assertEquals(token.getAccountType(), AccountType.CSR);
     }
