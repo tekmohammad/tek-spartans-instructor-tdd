@@ -72,6 +72,15 @@
             <scope>test</scope>
         </dependency>
 
+        <!--        Project Lombok Dependency -->
+        <!--        IntelliJ install Plugin for Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

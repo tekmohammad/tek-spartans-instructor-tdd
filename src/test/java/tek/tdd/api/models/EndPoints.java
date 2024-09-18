@@ -1,5 +1,8 @@
 package tek.tdd.api.models;
 
+import lombok.Getter;
+
+@Getter
 public enum EndPoints {
     TOKEN("/api/token"),
     GET_PRIMARY_ACCOUNT("/api/accounts/get-primary-account"),
@@ -10,9 +13,5 @@ public enum EndPoints {
 
     EndPoints(String value) {
         this.value = value;
-    }
-
-    public String getValue() {
-        return this.value;
     }
 }
