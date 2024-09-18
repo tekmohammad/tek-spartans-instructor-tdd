@@ -13,6 +13,8 @@ import tek.tdd.api.models.PlanCodesList;
 import tek.tdd.api.models.TokenRequest;
 import tek.tdd.base.ApiTestsBase;
 
+import java.util.List;
+
 public class PlanCodeTests extends ApiTestsBase {
     private static final Logger LOGGER = LogManager.getLogger(PlanCodeTests.class);
 
@@ -41,8 +43,9 @@ public class PlanCodeTests extends ApiTestsBase {
         ExtentTestManager.getTest().info(response.asPrettyString());
         LOGGER.info(response.asPrettyString());
 
-        PlanCodesList list = response.body().jsonPath().getObject("", PlanCodesList.class);
+        List<PlanCodeResponse> planCodes = response.body().jsonPath().getList("", PlanCodeResponse.class);
 
-        Assert.assertNotNull(list);
+        Assert.assertNotNull(planCodes);
+        Assert.assertTrue(planCodes.size() == 4);
     }
 }
