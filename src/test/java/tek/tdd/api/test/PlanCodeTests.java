@@ -5,11 +5,9 @@ import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import tek.tdd.api.models.EndPoints;
 import tek.tdd.api.models.PlanCodeResponse;
-import tek.tdd.api.models.PlanCodesList;
 import tek.tdd.api.models.TokenRequest;
 import tek.tdd.base.ApiTestsBase;
 
