@@ -1,7 +1,6 @@
 package tek.tdd.api.test;
 
 import com.aventstack.extentreports.service.ExtentTestManager;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.logging.log4j.LogManager;
