@@ -45,7 +45,6 @@ public class CreateAccountTest extends ApiTestsBase {
        AccountResponse accountResponse =response.body().jsonPath().getObject("", AccountResponse.class);
 
         Assert.assertNotNull(accountResponse);
-
     }
 
 }

@@ -47,4 +47,9 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
         String errorMessage = response.body().jsonPath().getString("errorMessage");
         Assert.assertEquals(errorMessage, "Account with id 252525 not exist");
     }
+
+
+    //Retrieve Latest primary Person from database  call API /get-primary-account
+    //Validate Api response with database response
+
 }
