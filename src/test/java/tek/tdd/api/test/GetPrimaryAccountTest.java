@@ -5,8 +5,12 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import tek.tdd.api.models.AccountResponse;
 import tek.tdd.api.models.EndPoints;
 import tek.tdd.base.ApiTestsBase;
+import tek.tdd.utility.DatabaseUtility;
+
+import java.sql.*;
 
 public class GetPrimaryAccountTest extends ApiTestsBase {
 
@@ -51,5 +55,31 @@ public class GetPrimaryAccountTest extends ApiTestsBase {
 
     //Retrieve Latest primary Person from database  call API /get-primary-account
     //Validate Api response with database response
+    @Test
+    public void getAccountWithDatabaseValidation() throws SQLException {
+        String query = "select id, email, first_name from primary_person order by id desc limit 1;";
+        DatabaseUtility dbUtility = new DatabaseUtility();
 
+        ResultSet resultSet = dbUtility.executeQuery(query);
+        resultSet.next();
+        int accountId = resultSet.getInt("id");
+        String expectedEmail = resultSet.getString("email");
+        String expectedFirstName = resultSet.getString("first_name");
+
+        Response response = getDefaultRequest()
+                .queryParam("primaryPersonId", accountId)
+                .when()
+                .get(EndPoints.GET_PRIMARY_ACCOUNT.getValue())
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+        ExtentTestManager.getTest().info(response.asPrettyString());
+        AccountResponse accountResponse = response.body().jsonPath()
+                .getObject("", AccountResponse.class);
+
+        Assert.assertEquals(accountResponse.getId(), accountId);
+        Assert.assertEquals(accountResponse.getEmail(), expectedEmail);
+        Assert.assertEquals(accountResponse.getFirstName(), expectedFirstName);
+    }
 }
