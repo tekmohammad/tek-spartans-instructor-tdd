@@ -1,3 +1,5 @@
 ##Running Test Maven command 
 
-clean test -Dtype=<Which runner>
+``
+clean test -Dtype=<Which runner> -Denv=<YourEnvironment>
+``
